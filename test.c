@@ -2,33 +2,23 @@
 
 int main(void)
 {
-    char *s = "42Bafg";
+    int a = 42;
+    void *p = &a;
 
-    // 1. กรณีพื้นฐาน
-    printf("1. ปกติ          [%s]\n", s);
+    printf("=== Test %%p Flags ===\n");
+    printf("1. Normal       : [%p]\n", p);
+    
+    // Width & Minus (มีผลแน่นอน)
+    printf("2. Width (20)   : [%20p]\n", p);
+    printf("3. Minus (-20)  : [%-20p]\n", p);
+    
+    // Zero & Precision (ต้องสังเกตผลลัพธ์ว่าเครื่องคุณทำยังไง)
+    printf("4. Zero (020)   :  [%.30p]\n", p);
+    printf("5. Precision(.20): [%030.30p]\n", p);
 
-    // 2. ใช้ Precision อย่างเดียว (ตัดข้อความ)
-    printf("2. Precision     [%.10s]\n", s);
+    printf("6. NULL Pointer : [%p]\n", NULL);
 
-    // 3. Width + Left-align (-)
-    printf("3. Width + `-`   [%-12s]\n", s);
-
-    // 4. Width + Zero flag (0) -> สังเกตว่า 0 จะถูกเมินและเติม Space แทน
-    printf("4. Width + `0`   [%012s]\n", s);
-
-    // 5. Left-align + Zero flag (`-0`) -> `-` จะยกเลิก `0` ทันที
-    printf("5. `-` + `0`     [%-012s]\n", s);
-
-    // 6. Width + Precision + Left-align (`-` และ `.`)
-    printf("6. Width + Prec + `-`  [%-12.3s]\n", s);
-
-    // 7. Width + Precision + Zero flag (`0` และ `.`) -> `0` ยังคงถูกเมิน
-    printf("7. Width + Prec + `0`  [%012.3s]\n", s);
-
-    // 8. ครบทุกตัว (`-`, `0`, `.`)
-    printf("8. All (`-0.`)   [%-012.3s]\n", s);
-
-    printf("9. All (`-0.`)   [%5.3s]\n", s);
-
+    printf("%10.5p", 0);
+    
     return (0);
 }
