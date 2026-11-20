@@ -1,4 +1,4 @@
-# ชื่อของไฟล์ Library ที่โจทย์บังคับ
+# ชื่อของไฟล์ Library
 NAME	= libftprintf.a
 
 # ตั้งค่า Compiler และ Flags
@@ -7,7 +7,7 @@ CFLAGS	= -Wall -Wextra -Werror
 AR		= ar rcs
 RM		= rm -f
 
-# รายชื่อไฟล์ Source Code ตามที่คุณมี (ไม่รวม main.c)
+# รายชื่อไฟล์ Source Code
 SRCS	= all_print.c \
 		  count_len.c \
 		  print_c_s.c \
@@ -22,6 +22,9 @@ OBJS	= $(SRCS:.c=.o)
 
 # กฎหลัก
 all: $(NAME)
+
+# กฎโบนัส (เนื่องจากเรารวมโค้ดโบนัสไว้ในไฟล์หลักแล้ว จึงเรียก all ได้เลย)
+bonus: all
 
 # กฎการสร้าง libftprintf.a
 $(NAME): $(OBJS)
@@ -42,4 +45,5 @@ fclean: clean
 # ล้างทั้งหมดแล้วคอมไพล์ใหม่
 re: fclean all
 
-.PHONY: all clean fclean re
+# ใส่ bonus เข้าไปใน .PHONY ด้วย
+.PHONY: all clean fclean re bonus

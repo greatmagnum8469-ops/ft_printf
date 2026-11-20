@@ -1,28 +1,6 @@
 #include "ft_printf.h"
 
 
-int     recure_print_hex(unsigned long p, t_format *data_all)
-{
-    int len;
-
-    if (p == 0 && (*data_all).precision == 0)
-        return (0);
-    if (p == 0)
-    {
-        write(1, "0", 1);
-        return (1);
-    }
-    len = 0;
-    if (p >= 16)
-        len += recure_print_hex(p/16, data_all);
-    if ((*data_all).type == 'x')
-        write(1, ("0123456789abcdef")+((p) % 16), 1);
-    else if ((*data_all).type == 'X')
-        write(1, ("0123456789ABCDEF")+((p) % 16), 1);
-    return len + 1;
-}
-
-
 int    print_p_recur(unsigned long p)
 {
     int len;
