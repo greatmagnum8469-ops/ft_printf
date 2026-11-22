@@ -1,49 +1,64 @@
-# ชื่อของไฟล์ Library
-NAME	= libftprintf.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hzheng2 <hzheng2@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/11/22 13:04:18 by hzheng2           #+#    #+#              #
+#    Updated: 2026/11/22 14:55:41 by hzheng2          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-# ตั้งค่า Compiler และ Flags
-CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
-AR		= ar rcs
-RM		= rm -f
+NAME		= libftprintf.a
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror -I. -Ibonus
+AR			= ar rcs
+RM			= rm -f
 
-# รายชื่อไฟล์ Source Code
-SRCS	= all_print.c \
-		  count_len.c \
-		  print_c_s.c \
-		  print_d_i.c \
-		  print_p.c \
-		  print_x.c \
-		  set_format.c \
-		  centor.c
+SRCS		= all_print.c \
+			  count_len.c \
+			  print_c_s.c \
+			  print_d_i.c \
+			  print_p.c \
+			  print_x.c \
+			  set_format.c \
+			  centor.c
 
-# แปลงนามสกุล .c เป็น .o
-OBJS	= $(SRCS:.c=.o)
+BONUS_SRCS	= bonus/all_print_bonus.c \
+			  bonus/count_len_bonus.c \
+			  bonus/print_c_s_bonus.c \
+			  bonus/print_d_i_bonus.c \
+			  bonus/print_p_bonus.c \
+			  bonus/print_x_bonus.c \
+			  bonus/set_format_bonus.c \
+			  bonus/centor_bonus.c
 
-# กฎหลัก
+OBJS		= $(SRCS:.c=.o)
+BONUS_OBJS	= $(BONUS_SRCS:.c=.o)
+
 all: $(NAME)
 
-# กฎโบนัส (เนื่องจากเรารวมโค้ดโบนัสไว้ในไฟล์หลักแล้ว จึงเรียก all ได้เลย)
-bonus: all
-
-# กฎการสร้าง libftprintf.a
 $(NAME): $(OBJS)
+	$(RM) $(NAME)
 	$(AR) $(NAME) $(OBJS)
 
-# กฎการคอมไพล์ไฟล์ .c เป็น .o
+bonus: .bonus
+
+.bonus: $(BONUS_OBJS)
+	$(RM) $(NAME)
+	$(AR) $(NAME) $(BONUS_OBJS)
+	@touch .bonus
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# ลบไฟล์ .o
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(BONUS_OBJS) .bonus
 
-# ลบไฟล์ .o และไฟล์ .a
 fclean: clean
 	$(RM) $(NAME)
 
-# ล้างทั้งหมดแล้วคอมไพล์ใหม่
 re: fclean all
 
-# ใส่ bonus เข้าไปใน .PHONY ด้วย
 .PHONY: all clean fclean re bonus
